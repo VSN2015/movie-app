@@ -1,33 +1,41 @@
 @import "tailwindcss";
 
-@font-face {
-    font-family: 'Netflix Sans';
-    src: local('NetflixSans-Regular'),
-        url('./fonts/NetflixSans-Regular.woff2') format('woff2');
-    font-weight: normal;
+@theme {
+  --text-10px: 10px;
 }
 
 @font-face {
-    font-family: 'Netflix Sans';
-    src: local('NetflixSans-Medium'),
-        url('./fonts/NetflixSans-Medium.woff2') format('woff2');
-    font-weight: 600;
+  font-family: "Netflix Sans";
+  src:
+    local("NetflixSans-Regular"),
+    url("./fonts/NetflixSans-Regular.woff2") format("woff2");
+  font-weight: normal;
 }
 
 @font-face {
-    font-family: 'Netflix Sans';
-    src: local('NetflixSans-Light'),
-        url('./fonts/NetflixSans-Light.woff2') format('woff2');
-    font-weight: 300;
+  font-family: "Netflix Sans";
+  src:
+    local("NetflixSans-Medium"),
+    url("./fonts/NetflixSans-Medium.woff2") format("woff2");
+  font-weight: 600;
 }
 
 @font-face {
-    font-family: 'Netflix Sans';
-    src: local('NetflixSans-Bold'),
-        url('./fonts/NetflixSans-Bold.woff2') format('woff2');
-    font-weight: bold;
+  font-family: "Netflix Sans";
+  src:
+    local("NetflixSans-Light"),
+    url("./fonts/NetflixSans-Light.woff2") format("woff2");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Netflix Sans";
+  src:
+    local("NetflixSans-Bold"),
+    url("./fonts/NetflixSans-Bold.woff2") format("woff2");
+  font-weight: bold;
 }
 
 body {
-    font-family: 'Netflix Sans';
+  font-family: "Netflix Sans";
 }
