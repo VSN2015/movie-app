@@ -23,7 +23,7 @@ const FeatureMovies = () => {
     )
       .then((res) => res.json())
       .then((res) => {
-        const popularMovies = res.results.slice(0, 4);
+        const popularMovies = res.results.slice(0, 12);
         setMovies(popularMovies);
       })
       .catch((err) => console.error(err));
@@ -33,7 +33,7 @@ const FeatureMovies = () => {
   useEffect(() => {
     if (movies.length === 0) return;
 
-    console.log('affect');
+    console.log('Auto-slide effect');
 
     const interval = setInterval(() => {
       setSlideMovieIndex((prevIndex) => {
