@@ -1,27 +1,68 @@
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CircularProgressBar from '../components/CircularProgressBar';
+import { useParams } from 'react-router';
+import { useEffect, useState } from 'react';
+import { groupBy } from 'lodash';
 
 const MovieDetail = () => {
+  const { id } = useParams();
+  const [movieInfo, setMovieInfo] = useState({}); 
+
+  useEffect(() => {
+    const options = {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NTgyYjQyYzMyZTExMDMyYTAyMmY3OTYzYzljNzIyMSIsIm5iZiI6MTc1MzYwNTI0My44MDMsInN1YiI6IjY4ODVlNDdiNmMwZGYzZGE5YjE2YzFkNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.pg2d9e2VMploGY60BUZFaEj3ueOFk1yuarjuf3JLyZc',
+      },
+    };
+
+    fetch(`https://api.themoviedb.org/3/movie/${id}?append_to_response=release_dates,credits`, options)
+      .then((res) => res.json())
+      .then((data) => {
+        setMovieInfo(data)
+        console.log(data)
+      })
+      .catch((err) => console.error(err));    
+  }, [id])
+
+  const releaseDateResults = movieInfo.release_dates?.results || []
+  const releaseDates = releaseDateResults.find(result => result.iso_3166_1 == 'US')?.release_dates || []
+  const certificationLabel = releaseDates.find(releaseDate => releaseDate.certification)?.certification
+  const genres = (movieInfo.genres || []).map(genre => genre.name).join(', ')
+
+  const crews = (movieInfo.credits?.crew || []).filter(crew => ['Director', 'Screenplay', 'Writer'].includes(crew.job))
+  const crewInfo = crews.map(crew => ({id: crew.id, job: crew.job, name: crew.name}))
+  const groupedCrews = groupBy(crewInfo, 'job')
+  const groupedCrewKeys = Object.keys(groupedCrews)
+  console.log(groupedCrews)
+
   return (
-    <section className="movie-detail bg-black/70 bg-[url(https://image.tmdb.org/t/p/original/zNriRTr0kWwyaXPzdg1EIxf0BWk.jpg)] bg-cover bg-center [background-blend-mode:multiply]">
+    <section
+      className="movie-detail bg-black/70 bg-cover bg-center [background-blend-mode:multiply]"
+      style={{
+        backgroundImage: `url(https://image.tmdb.org/t/p/original/${movieInfo.backdrop_path})`
+      }}
+    >
       <div className="mx-auto flex max-w-3xl gap-6 p-6">
         <div className="flex-1/3">
           <img
-            src="https://media.themoviedb.org/t/p/w600_and_h900_bestv2/zNriRTr0kWwyaXPzdg1EIxf0BWk.jpg"
+            src={`https://media.themoviedb.org/t/p/w600_and_h900_bestv2${movieInfo.poster_path}`}
             alt=""
           />
         </div>
         <div className="flex-2/3 text-[1.2vw] text-white">
-          <h2 className="mb-2 text-[2vw] font-bold">Test</h2>
+          <h2 className="mb-2 text-[2vw] font-bold">{movieInfo.title}</h2>
           <div className="flex items-center gap-4">
-            <span className="border border-gray-400 p-1 text-gray-400">G</span>
-            <p>2024-11-11</p>
-            <p>The loai</p>
+            <span className="border border-gray-400 p-1 text-gray-400">{certificationLabel}</span>
+            <p>{movieInfo.release_date}</p>
+            <p>{genres}</p>
           </div>
           <div className="mt-4 flex items-center gap-4">
             <div className="flex items-center gap-2">
-              <CircularProgressBar percent={90} size={3.5} strokeWidth={0.3} />{' '}
+              <CircularProgressBar percent={Math.round(movieInfo.vote_average * 10)} size={3.5} strokeWidth={0.3} />{' '}
               Rating
             </div>
             <button className='cursor-pointer'>
@@ -31,21 +72,22 @@ const MovieDetail = () => {
           <div className='mt-4'>
             <h3 className='font-bold text-[1.3vw] mb-2'>Overview</h3>
             <article>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus
-              minima laudantium tempora ratione molestiae reiciendis ex
-              voluptates inventore debitis! Voluptates reiciendis, et impedit
-              recusandae ipsa ut eum sapiente asperiores. Sunt?
+              {movieInfo.overview}
             </article>
           </div>
-          <div className='mt-4 grid grid-cols-2 gap-2'>
-            <div>
-              <p className='font-bold'>Director</p>
-              <p>Test name</p>
-            </div>
-            <div>
-              <p className='font-bold'>Writer</p>
-              <p>Test name</p>
-            </div>
+          <div className={`mt-4 grid grid-cols-${groupedCrewKeys.length} gap-2`}>
+            {
+              groupedCrewKeys.map(job => (
+                <div key={job}>
+                  <p className='font-bold'>{job}</p>
+                  <p>
+                    {
+                      groupedCrews[job].map(crew => crew.name).join(', ')
+                    }
+                  </p>
+                </div>
+              ))
+            }
           </div>
         </div>
       </div>
