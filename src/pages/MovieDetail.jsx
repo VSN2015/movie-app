@@ -37,6 +37,7 @@ const MovieDetail = () => {
   const crewInfo = crews.map(crew => ({id: crew.id, job: crew.job, name: crew.name}))
   const groupedCrews = groupBy(crewInfo, 'job')
   const groupedCrewKeys = Object.keys(groupedCrews)
+  const voteAverage = movieInfo.vote_average || 0
   console.log(groupedCrews)
 
   return (
@@ -46,7 +47,7 @@ const MovieDetail = () => {
         backgroundImage: `url(https://image.tmdb.org/t/p/original/${movieInfo.backdrop_path})`
       }}
     >
-      <div className="mx-auto flex max-w-3xl gap-6 p-6">
+      <div className="mx-auto flex sm:max-w-3xl lg:max-w-full gap-6 p-6">
         <div className="flex-1/3">
           <img
             src={`https://media.themoviedb.org/t/p/w600_and_h900_bestv2${movieInfo.poster_path}`}
@@ -62,7 +63,7 @@ const MovieDetail = () => {
           </div>
           <div className="mt-4 flex items-center gap-4">
             <div className="flex items-center gap-2">
-              <CircularProgressBar percent={Math.round(movieInfo.vote_average * 10)} size={3.5} strokeWidth={0.3} />{' '}
+              <CircularProgressBar percent={Math.round(voteAverage * 10)} size={3.5} strokeWidth={0.3} />{' '}
               Rating
             </div>
             <button className='cursor-pointer'>

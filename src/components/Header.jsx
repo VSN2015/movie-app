@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <header className="flex h-14 lg:h-20 items-center justify-between bg-slate-950 px-8 text-white">
       <nav className="flex items-center gap-4 lg:gap-6">
-        <img src="./netflix.png" alt="Logo" className="w-16 sm:w-28" />
+        <img src="/netflix.png" alt="Logo" className="w-16 sm:w-28" />
         <a className="lg:text-xl" href="#">Phim</a>
         <a className="lg:text-xl" href="#">Truyền hình</a>
       </nav>
