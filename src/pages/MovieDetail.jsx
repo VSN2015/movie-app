@@ -4,12 +4,15 @@ import CircularProgressBar from '../components/CircularProgressBar';
 import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import { groupBy } from 'lodash';
+import Loading from '../components/Loading';
 
 const MovieDetail = () => {
   const { id } = useParams();
-  const [movieInfo, setMovieInfo] = useState({}); 
+  const [movieInfo, setMovieInfo] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     const options = {
       method: 'GET',
       headers: {
@@ -25,7 +28,10 @@ const MovieDetail = () => {
         setMovieInfo(data)
         console.log(data)
       })
-      .catch((err) => console.error(err));    
+      .catch((err) => console.error(err))
+      .finally(() => {
+        setIsLoading(false);
+      })
   }, [id])
 
   const releaseDateResults = movieInfo.release_dates?.results || []
@@ -39,6 +45,10 @@ const MovieDetail = () => {
   const groupedCrewKeys = Object.keys(groupedCrews)
   const voteAverage = movieInfo.vote_average || 0
   console.log(groupedCrews)
+
+  if(isLoading){
+    return <Loading/>
+  }
 
   return (
     <section
