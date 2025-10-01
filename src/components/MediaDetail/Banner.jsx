@@ -24,7 +24,7 @@ const Banner = ({mediaInfo}) => {
         backgroundImage: `url(https://image.tmdb.org/t/p/original/${mediaInfo.backdrop_path})`
       }}
     >
-      <div className="mx-auto flex sm:max-w-3xl lg:max-w-full gap-6 p-6">
+      <div className="mx-auto flex max-w-screen-xl gap-6 px-6 py-10 lg:gap-8">
         <div className="flex-1/3">
           <img
             src={`https://media.themoviedb.org/t/p/w600_and_h900_bestv2${mediaInfo.poster_path}`}
