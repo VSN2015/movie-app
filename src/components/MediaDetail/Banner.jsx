@@ -1,6 +1,6 @@
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { groupBy } from "lodash";
-import CircularProgressBar from "../CircularProgressBar";
+import CircularProgressBar from "@components/CircularProgressBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Banner = ({mediaInfo}) => {

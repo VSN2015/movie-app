@@ -1,10 +1,9 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import CircularProgressBar from '../components/CircularProgressBar';
 import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
-import Loading from '../components/Loading';
-import Banner from '../components/MediaDetail/Banner';
-import ActorList from '../components/MediaDetail/ActorList';
+import Loading from '@components/Loading';
+import Banner from '@components/MediaDetail/Banner';
+import ActorList from '@components/MediaDetail/ActorList';
+import RelatedMediaList from '@components/MediaDetail/RelatedMediaList';
 
 const MovieDetail = () => {
   const { id } = useParams();
@@ -44,7 +43,8 @@ const MovieDetail = () => {
       <div className='bg-black text-white'>
         <div className='mx-auto flex max-w-screen-xl px-6 py-10 gap-8'>
           <div className='flex-2/3'>
-            <ActorList/>
+            <ActorList actors={movieInfo.credits?.cast || []}/>
+            <RelatedMediaList/>
           </div>
           <div className='flex-1/3'>
             <p className='font-bold text-[1.4vw] mb-4'>Information</p>
