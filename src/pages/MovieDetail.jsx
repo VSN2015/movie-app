@@ -4,12 +4,13 @@ import Loading from '@components/Loading';
 import Banner from '@components/MediaDetail/Banner';
 import ActorList from '@components/MediaDetail/ActorList';
 import RelatedMediaList from '@components/MediaDetail/RelatedMediaList';
+import MovieInformation from '@components/MediaDetail/MovieInformation';
 
 const MovieDetail = () => {
   const { id } = useParams();
   const [movieInfo, setMovieInfo] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const [isRelatedMediaListLoading, setIsRelatedMediaListLoading] =
+  // const [isRelatedMediaListLoading, setIsRelatedMediaListLoading] =
     useState(false);
   const [relatedMediaList, setRelatedMediaList] = useState([]);
 
@@ -20,7 +21,7 @@ const MovieDetail = () => {
       headers: {
         accept: 'application/json',
         Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NTgyYjQyYzMyZTExMDMyYTAyMmY3OTYzYzljNzIyMSIsIm5iZiI6MTc1MzYwNTI0My44MDMsInN1YiI6IjY4ODVlNDdiNmMwZGYzZGE5YjE2YzFkNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.pg2d9e2VMploGY60BUZFaEj3ueOFk1yuarjuf3JLyZc',
+          `Bearer ${import.meta.env.VITE_API_TOKEN}`,
       },
     };
 
@@ -40,13 +41,13 @@ const MovieDetail = () => {
   }, [id]);
 
   useEffect(() => {
-    setIsRelatedMediaListLoading(true);
+    // setIsRelatedMediaListLoading(true);
     const options = {
       method: 'GET',
       headers: {
         accept: 'application/json',
         Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NTgyYjQyYzMyZTExMDMyYTAyMmY3OTYzYzljNzIyMSIsIm5iZiI6MTc1MzYwNTI0My44MDMsInN1YiI6IjY4ODVlNDdiNmMwZGYzZGE5YjE2YzFkNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.pg2d9e2VMploGY60BUZFaEj3ueOFk1yuarjuf3JLyZc',
+          `Bearer ${import.meta.env.VITE_API_TOKEN}`,
       },
     };
 
@@ -59,7 +60,7 @@ const MovieDetail = () => {
       })
       .catch((err) => console.error(err))
       .finally(() => {
-        setIsRelatedMediaListLoading(false);
+        // setIsRelatedMediaListLoading(false);
       });
   }, [id]);
 
@@ -77,7 +78,7 @@ const MovieDetail = () => {
             <RelatedMediaList mediaList={relatedMediaList} />
           </div>
           <div className="flex-1/3">
-            <p className="mb-4 text-[1.4vw] font-bold">Information</p>
+            <MovieInformation movieInfo={movieInfo}/>
           </div>
         </div>
       </div>
