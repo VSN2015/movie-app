@@ -5,40 +5,18 @@ import Banner from '@components/MediaDetail/Banner';
 import ActorList from '@components/MediaDetail/ActorList';
 import RelatedMediaList from '@components/MediaDetail/RelatedMediaList';
 import MovieInformation from '@components/MediaDetail/MovieInformation';
+import useAPIFetch from '@hooks/useFetch';
 
 const MovieDetail = () => {
   const { id } = useParams();
-  const [movieInfo, setMovieInfo] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
+  // const [movieInfo, setMovieInfo] = useState({});
+  // const [isLoading, setIsLoading] = useState(false);
   // const [isRelatedMediaListLoading, setIsRelatedMediaListLoading] =
-    useState(false);
+    // useState(false);
   const [relatedMediaList, setRelatedMediaList] = useState([]);
-
-  useEffect(() => {
-    setIsLoading(true);
-    const options = {
-      method: 'GET',
-      headers: {
-        accept: 'application/json',
-        Authorization:
-          `Bearer ${import.meta.env.VITE_API_TOKEN}`,
-      },
-    };
-
-    fetch(
-      `https://api.themoviedb.org/3/movie/${id}?append_to_response=release_dates,credits`,
-      options
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setMovieInfo(data);
-        console.log(data);
-      })
-      .catch((err) => console.error(err))
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, [id]);
+  const {isLoading, data: movieInfo} = useAPIFetch({
+    url: `/movie/${id}?append_to_response=release_dates,credits`
+  })
 
   useEffect(() => {
     // setIsRelatedMediaListLoading(true);
