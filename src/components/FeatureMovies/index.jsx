@@ -1,33 +1,15 @@
 import { useEffect, useState } from 'react';
 import Movie from './Movie';
 import PaginateIndicator from './PaginateIndicator';
+import useAPIFetch from '@hooks/useFetch';
 
 const FeatureMovies = () => {
-  const [movies, setMovies] = useState([]);
-  // const [activeMovieId, setActiveMovieId] = useState();
   const [slideMovieIndex, setSlideMovieIndex] = useState(0);
 
-  useEffect(() => {
-    const options = {
-      method: 'GET',
-      headers: {
-        accept: 'application/json',
-        Authorization:
-          `Bearer ${import.meta.env.VITE_API_TOKEN}`,
-      },
-    };
-
-    fetch(
-      'https://api.themoviedb.org/3/movie/popular?language=en-US&page=1',
-      options
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        const popularMovies = res.results.slice(0, 12);
-        setMovies(popularMovies);
-      })
-      .catch((err) => console.error(err));
-  }, []);
+  const { data: popularMoviesResponse } = useAPIFetch({
+    url: '/movie/popular?language=en-US&page=1',
+  });
+  const movies = (popularMoviesResponse.results || []).slice(0, 12);
 
   // Auto-slide effect
   useEffect(() => {
@@ -43,12 +25,10 @@ const FeatureMovies = () => {
     }, 5000); // Change slide every 3 seconds
 
     return () => {
-      console.log('clear');
+      console.log('clear Auto-slide effect');
       clearInterval(interval);
     };
   }, [movies]);
-
-  console.log('movies', movies);
 
   return (
     <section className="feature-movies relative text-white">

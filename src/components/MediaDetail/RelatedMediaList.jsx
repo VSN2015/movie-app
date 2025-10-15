@@ -1,6 +1,9 @@
+import Loading from '@components/Loading';
 import MovieCard from '@components/MovieCard';
 
-const RelatedMediaList = ({ mediaList = [] }) => {
+const RelatedMediaList = ({ mediaList = [], isLoading }) => {
+  if(isLoading) return <Loading/>;
+
   return (
     <section className="related-media-list mt-4">
       <p className="mb-4 text-[1.4vw] font-bold">More like this</p>

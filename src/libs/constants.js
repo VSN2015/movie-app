@@ -2,17 +2,17 @@ export const TRENDING_TABS = [
   {
     id: 'all',
     name: 'All',
-    api_url: 'https://api.themoviedb.org/3/trending/all/day'
+    api_url: '/trending/all/day'
   },
   {
     id: 'movie',
     name: 'Movie',
-    api_url: 'https://api.themoviedb.org/3/trending/movie/day'
+    api_url: '/trending/movie/day'
   },
   {
     id: 'tv',
     name: 'TV Show',
-    api_url: 'https://api.themoviedb.org/3/trending/tv/day'
+    api_url: '/trending/tv/day'
   },
 ];
 
@@ -20,11 +20,11 @@ export const TOP_RATED_TABS = [
   {
     id: 'movie',
     name: 'Movie',
-    api_url: 'https://api.themoviedb.org/3/movie/top_rated'
+    api_url: '/movie/top_rated'
   },
   {
     id: 'tv',
     name: 'TV Show',
-    api_url: 'https://api.themoviedb.org/3/tv/top_rated'
+    api_url: '/tv/top_rated'
   }
 ]

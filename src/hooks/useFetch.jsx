@@ -6,7 +6,7 @@ const DEFAULT_HEADERS = {
 };
 
 export default function useAPIFetch({
-  url = '',
+  url,
   method = 'GET',
   headers = {},
 }) {
