@@ -38,6 +38,8 @@ const Banner = ({ mediaInfo }) => {
           <img
             src={`https://media.themoviedb.org/t/p/w600_and_h900_bestv2${mediaInfo.poster_path}`}
             alt=""
+            width={600}
+            height={900}
           />
         </div>
         <div className="flex-2/3 text-[1.2vw] text-white">

@@ -30,6 +30,8 @@ const MovieCard = ({
           className="rounded-lg"
           src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
           alt=""
+          width={250}
+          height={375}
         />
         <div className="relative -top-[1.5vw] px-4">
           <CircularProgressBar
