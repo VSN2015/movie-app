@@ -2,6 +2,7 @@ import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import { groupBy } from 'lodash';
 import CircularProgressBar from '@components/CircularProgressBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ImageComponent from '@components/Image';
 
 const Banner = ({ mediaInfo }) => {
   const releaseDateResults = mediaInfo.release_dates?.results || [];
@@ -35,7 +36,7 @@ const Banner = ({ mediaInfo }) => {
     >
       <div className="mx-auto flex max-w-screen-xl gap-6 px-6 py-10 lg:gap-8">
         <div className="flex-1/3">
-          <img
+          <ImageComponent
             src={`https://media.themoviedb.org/t/p/w600_and_h900_bestv2${mediaInfo.poster_path}`}
             alt=""
             width={600}

@@ -1,5 +1,6 @@
 import { Link } from 'react-router';
 import CircularProgressBar from '@components/CircularProgressBar';
+import ImageComponent from '@components/Image';
 
 const MovieCard = ({
   id,
@@ -18,6 +19,8 @@ const MovieCard = ({
     strokeColor = 'red';
   }
 
+  console.log(poster_path)
+
   return (
     <Link to={`/movie/${id}`} className="rounded-lg border border-slate-800">
       <div className="relative">
@@ -26,12 +29,12 @@ const MovieCard = ({
             TV Show
           </p>
         )}
-        <img
-          className="rounded-lg"
-          src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+        <ImageComponent
+          src={poster_path ? `https://image.tmdb.org/t/p/w500/${poster_path}` : 'https://placehold.co/250x375?text=No+Image'}
           alt=""
           width={250}
           height={375}
+          className={'rounded-lg w-full'}
         />
         <div className="relative -top-[1.5vw] px-4">
           <CircularProgressBar
