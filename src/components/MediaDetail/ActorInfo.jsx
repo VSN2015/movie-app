@@ -1,6 +1,7 @@
 import ImageComponent from "@components/Image";
+import pluralize from "pluralize";
 
-const ActorInfo = ({ name, character, profilePath }) => {
+const ActorInfo = ({ name, character, profilePath, episodeCount }) => {
   return (
     <div className="rounded-lg border border-slate-300 shadow-sm">
       <ImageComponent
@@ -17,7 +18,7 @@ const ActorInfo = ({ name, character, profilePath }) => {
       <div className="p-3">
         <p className="text-[1.4vw] font-bold">{name}</p>
         <p className="text-[1vw]">{character}</p>
-        {/* <p>Age</p> */}
+        <p className="text-[1vw]">{episodeCount} {pluralize('Episode', episodeCount)}</p>
       </div>
     </div>
   );

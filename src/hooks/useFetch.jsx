@@ -25,7 +25,6 @@ export default function useAPIFetch({
       .then((res) => res.json())
       .then((data) => {
         setData(data);
-        console.log(data);
       })
       .catch((err) => console.error(err))
       .finally(() => {

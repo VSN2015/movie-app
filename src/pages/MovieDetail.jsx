@@ -13,20 +13,48 @@ const MovieDetail = () => {
     url: `/movie/${id}?append_to_response=release_dates,credits`,
   });
 
-  const { data: movieRecommendationsResponse, isLoading: isRelatedMediaListLoading } =
-    useAPIFetch({
-      url: `/movie/${id}/recommendations`,
-    });
+  const {
+    data: movieRecommendationsResponse,
+    isLoading: isRelatedMediaListLoading,
+  } = useAPIFetch({
+    url: `/movie/${id}/recommendations`,
+  });
   const relatedMediaList = (movieRecommendationsResponse.results || []).slice(
     0,
     12
   );
 
-  if (isLoading) return <Loading />;
+  const releaseDateResults = movieInfo.release_dates?.results || [];
+  const releaseDates =
+    releaseDateResults.find((result) => result.iso_3166_1 == 'US')
+      ?.release_dates || [];
+  const certificationLabel = releaseDates.find(
+    (releaseDate) => releaseDate.certification
+  )?.certification;
 
+  const crews = (movieInfo.credits?.crew || []).filter((crew) =>
+    ['Director', 'Screenplay', 'Writer'].includes(crew.job)
+  );
+  const filteredCrews = crews.map((crew) => ({
+    id: crew.id,
+    job: crew.job,
+    name: crew.name,
+  }));
+
+  if (isLoading) return <Loading />;
   return (
     <>
-      <Banner mediaInfo={movieInfo} />
+      <Banner
+        title={movieInfo.title}
+        releaseDate={movieInfo.release_date}
+        voteAverage={movieInfo.vote_average}
+        certificationLabel={certificationLabel}
+        backdropPath={movieInfo.backdrop_path}
+        posterPath={movieInfo.poster_path}
+        overview={movieInfo.overview}
+        genres={movieInfo.genres}
+        crews={filteredCrews}
+      />
       <div className="bg-black text-white">
         <div className="mx-auto flex max-w-screen-xl gap-8 px-6 py-10">
           <div className="flex-2/3">
