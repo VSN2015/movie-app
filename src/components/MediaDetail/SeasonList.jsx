@@ -22,10 +22,10 @@ const SeasonList = ({ seasons = [] }) => {
               height={195}
               src={
                 season.poster_path
-                  ? `https://media.themoviedb.org/t/p/w130_and_h195_face${season.poster_path}`
+                  ? `https://media.themoviedb.org/t/p/w300${season.poster_path}`
                   : 'https://placehold.co/130x195'
               }
-              className="h-[195px] w-[130px] rounded-lg"
+              className="w-1/4 rounded-lg"
             />
             <div className="space-y-1 text-[1.2vw]">
               <p className="text-[1.4vw] font-bold">{season.name}</p>
@@ -50,12 +50,17 @@ const SeasonList = ({ seasons = [] }) => {
           </div>
         ))}
       </div>
-      <p
-        className="mt-2 cursor-pointer text-[1.2vw] underline"
-        onClick={() => setIsShowMore(!isShowMore)}
-      >
-        {isShowMore ? '< Show less' : 'Show more >'}
-      </p>
+      {
+        seasons.length > 1 && (
+          <p
+            className="mt-2 cursor-pointer text-[1.2vw] underline"
+            onClick={() => setIsShowMore(!isShowMore)}
+          >
+            {isShowMore ? '< Show less' : 'Show more >'}
+          </p>
+        ) 
+      }
+      
     </div>
   );
 };

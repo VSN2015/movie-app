@@ -18,7 +18,7 @@ const ActorInfo = ({ name, character, profilePath, episodeCount }) => {
       <div className="p-3">
         <p className="text-[1.4vw] font-bold">{name}</p>
         <p className="text-[1vw]">{character}</p>
-        <p className="text-[1vw]">{episodeCount} {pluralize('Episode', episodeCount)}</p>
+        <p className="text-[1vw]">{episodeCount || 0} {pluralize('Episode', episodeCount || 0)}</p>
       </div>
     </div>
   );

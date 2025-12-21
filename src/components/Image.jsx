@@ -7,15 +7,19 @@ const ImageComponent = ({ src, width, height, className, alt }) => {
 
   useEffect(() => {
     const image = new Image();
-    image.src = src
-    image.onload = () => {
-      setCurrentSrc(src)
-    };
+    if (src) {
+      image.src = src;
+      image.onload = () => {
+        setCurrentSrc(src);
+      };
+    } else {
+      setCurrentSrc(`https://placehold.co/${width}x${height}?text=No Image`);
+    }
 
     return () => {
       image.onload = null;
-    }
-  }, [src]);
+    };
+  }, [src, width, height]);
 
   return (
     <img

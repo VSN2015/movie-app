@@ -10,7 +10,7 @@ const MovieDetail = () => {
   const { id } = useParams();
 
   const { data: movieInfo, isLoading } = useAPIFetch({
-    url: `/movie/${id}?append_to_response=release_dates,credits`,
+    url: `/movie/${id}?append_to_response=release_dates,credits,videos`,
   });
 
   const {
@@ -54,6 +54,7 @@ const MovieDetail = () => {
         overview={movieInfo.overview}
         genres={movieInfo.genres}
         crews={filteredCrews}
+        videos={movieInfo.videos?.results || []}
       />
       <div className="bg-black text-white">
         <div className="mx-auto flex max-w-screen-xl gap-8 px-6 py-10">

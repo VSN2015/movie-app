@@ -3,6 +3,7 @@ import { groupBy } from 'lodash';
 import CircularProgressBar from '@components/CircularProgressBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ImageComponent from '@components/Image';
+import { useModalContext } from '@context/ModalProvider';
 
 const Banner = ({
   title,
@@ -14,10 +15,16 @@ const Banner = ({
   overview,
   genres = [],
   crews = [],
+  videos = [],
 }) => {
+  const { openPopup } = useModalContext();
+
+  if (!title) return null;
+
   const mediaGenres = genres.map((genre) => genre.name).join(', ');
   const groupedCrews = groupBy(crews, 'job');
   const groupedCrewKeys = Object.keys(groupedCrews);
+  const trailerVideoKey = videos.find((video) => video.type === 'Trailer')?.key;
 
   return (
     <section
@@ -55,7 +62,18 @@ const Banner = ({
               />{' '}
               Rating
             </div>
-            <button className="cursor-pointer">
+            <button
+              className="cursor-pointer"
+              onClick={() => {
+                openPopup(
+                  <iframe
+                    title="Trailer"
+                    className="aspect-video w-[50vw]"
+                    src={`https://www.youtube.com/embed/${trailerVideoKey}`}
+                  />
+                );
+              }}
+            >
               <FontAwesomeIcon icon={faPlay} className="mr-[.7]" /> Trailer
             </button>
           </div>

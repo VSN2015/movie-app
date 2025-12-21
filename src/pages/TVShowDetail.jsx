@@ -12,7 +12,7 @@ const TVShowDetail = () => {
   const { id } = useParams();
 
   const { data: tvInfo, isLoading } = useAPIFetch({
-    url: `/tv/${id}?append_to_response=content_ratings,aggregate_credits`,
+    url: `/tv/${id}?append_to_response=content_ratings,aggregate_credits,videos`,
   });
 
   const {
@@ -62,6 +62,7 @@ const TVShowDetail = () => {
         overview={tvInfo.overview}
         genres={tvInfo.genres}
         crews={filteredCrews}
+        videos={tvInfo.videos?.results || []}
       />
       <div className="bg-black text-white">
         <div className="mx-auto flex max-w-screen-xl gap-8 px-6 py-10">
