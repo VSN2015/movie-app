@@ -2,10 +2,10 @@ import { useState } from 'react';
 import MovieCard from '@components/MovieCard';
 import useAPIFetch from '@hooks/useFetch';
 
-const MediaList = ({ title, tabs = [] }) => {
+const MediaList = ({ name, title, tabs = [] }) => {
   // const [mediaList, setMediaList] = useState([]);
   const [activeTrendingTabId, setActiveTrendingTabId] = useState(
-    tabs.at(0)?.id
+    localStorage.getItem(`active${name}Tab`) || tabs.at(0)?.id
   );
 
   const request_url = tabs.find(
@@ -26,6 +26,7 @@ const MediaList = ({ title, tabs = [] }) => {
               className={`cursor-pointer rounded-xs px-2 py-1 ${activeTrendingTabId === tab.id ? 'bg-white text-black' : ''}`}
               onClick={() => {
                 setActiveTrendingTabId(tab.id);
+                localStorage.setItem(`active${name}Tab`, tab.id);
               }}
             >
               {tab.name}

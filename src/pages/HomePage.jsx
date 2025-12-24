@@ -7,8 +7,8 @@ function HomePage() {
     <>
       <main>
         <FeatureMovies/>
-        <MediaList title={'Trending'} tabs={TRENDING_TABS}/>
-        <MediaList title={'Top Rated'} tabs={TOP_RATED_TABS}/>
+        <MediaList name={'Trending'} title={'Trending'} tabs={TRENDING_TABS}/>
+        <MediaList name={'TopRated'} title={'Top Rated'} tabs={TOP_RATED_TABS}/>
       </main>
     </>
   );
